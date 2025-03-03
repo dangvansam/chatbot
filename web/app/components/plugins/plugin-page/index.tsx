@@ -164,7 +164,7 @@ const PluginPage = ({
               activeTab === 'discover' && (
                 <>
                   <Link
-                    href='https://docs.dify.ai/plugins/publish-plugins/publish-to-dify-marketplace'
+                    href='plugins/publish-plugins/publish-to-marketplace'
                     target='_blank'
                   >
                     <Button

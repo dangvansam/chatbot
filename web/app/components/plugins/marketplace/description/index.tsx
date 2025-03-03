@@ -55,14 +55,14 @@ const Description = async ({
         <span className="relative ml-1 mr-1 body-md-medium text-text-secondary after:content-[''] after:absolute after:left-0 after:bottom-[1.5px] after:w-full after:h-2 after:bg-text-text-selected z-[1]">
           <span className='relative z-[2] lowercase'>{t('category.bundles')}</span>
         </span>
-        {
+        {/* {
           !isZhHans && (
             <>
               <span className='mr-1'>{tCommon('operation.in')}</span>
               {t('marketplace.difyMarketplace')}
             </>
           )
-        }
+        } */}
       </h2>
     </>
   )

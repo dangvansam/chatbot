@@ -6,7 +6,6 @@ import { useContext } from 'use-context-selector'
 import VarReferenceVars from './var-reference-vars'
 import type { NodeOutPutVar, ValueSelector, Var } from '@/app/components/workflow/types'
 import ListEmpty from '@/app/components/base/list-empty'
-import { LanguagesSupported } from '@/i18n/language'
 import I18n from '@/context/i18n'
 
 type Props = {
@@ -45,9 +44,9 @@ const VarReferencePopup: FC<Props> = ({
               title={t('workflow.variableReference.noAssignedVars') || ''}
               description={<div className='text-text-tertiary system-xs-regular'>
                 {t('workflow.variableReference.assignedVarsDescription')}
-                <a target='_blank' rel='noopener noreferrer'
+                {/* <a target='_blank' rel='noopener noreferrer'
                   className='text-text-accent-secondary'
-                  href={locale !== LanguagesSupported[1] ? 'https://docs.dify.ai/guides/workflow/variables#conversation-variables' : `https://docs.dify.ai/${locale.toLowerCase()}/guides/workflow/variables#hui-hua-bian-liang`}>{t('workflow.variableReference.conversationVars')}</a>
+                  href={locale !== LanguagesSupported[1] ? 'https://docs.chatbot.ai/guides/workflow/variables#conversation-variables' : `https://docs.dify.ai/${locale.toLowerCase()}/guides/workflow/variables#hui-hua-bian-liang`}>{t('workflow.variableReference.conversationVars')}</a> */}
               </div>}
             />
           ))

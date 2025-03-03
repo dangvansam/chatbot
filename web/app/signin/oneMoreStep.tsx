@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useReducer } from 'react'
 import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
 import useSWR from 'swr'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Input from '../components/base/input'
@@ -13,7 +12,7 @@ import { LanguagesSupported, languages } from '@/i18n/language'
 import { oneMoreStep } from '@/service/common'
 import Toast from '@/app/components/base/toast'
 
-interface IState {
+type IState = {
   formState: 'processing' | 'error' | 'success' | 'initial'
   invitation_code: string
   interface_language: string
@@ -90,7 +89,7 @@ const OneMoreStep = () => {
                   <div className='w-[256px] text-xs font-medium'>
                     <div className='font-medium'>{t('login.sendUsMail')}</div>
                     <div className='text-xs font-medium cursor-pointer text-text-accent-secondary'>
-                      <a href="mailto:request-invitation@langgenius.ai">request-invitation@langgenius.ai</a>
+                      <a href="mailto:request-invitation@chatbot.ai">request-invitation@langgenius.ai</a>
                     </div>
                   </div>
                 }
@@ -154,11 +153,11 @@ const OneMoreStep = () => {
           <div className="block w-full mt-2 system-xs-regular text-text-tertiary">
             {t('login.license.tip')}
             &nbsp;
-            <Link
+            {/* <Link
               className='system-xs-medium text-text-accent-secondary'
               target='_blank' rel='noopener noreferrer'
               href={'https://docs.dify.ai/user-agreement/open-source'}
-            >{t('login.license.link')}</Link>
+            >{t('login.license.link')}</Link> */}
           </div>
         </div>
       </div>

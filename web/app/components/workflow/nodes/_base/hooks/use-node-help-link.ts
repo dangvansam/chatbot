@@ -5,10 +5,7 @@ import { BlockEnum } from '@/app/components/workflow/types'
 export const useNodeHelpLink = (nodeType: BlockEnum) => {
   const language = useGetLanguage()
   const prefixLink = useMemo(() => {
-    if (language === 'zh_Hans')
-      return 'https://docs.dify.ai/v/zh-hans/guides/workflow/node/'
-
-    return 'https://docs.dify.ai/guides/workflow/node/'
+    return 'https://docs.chatbot.ai/guides/workflow/node/'
   }, [language])
   const linkMap = useMemo(() => {
     if (language === 'zh_Hans') {

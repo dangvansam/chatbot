@@ -14,7 +14,7 @@ import { useProviderContext } from '@/context/provider-context'
 import AppsFull from '@/app/components/billing/apps-full-in-dialog'
 import type { AppIconType } from '@/types/app'
 
-export interface CreateAppModalProps {
+export type CreateAppModalProps = {
   show: boolean
   isEditModal?: boolean
   appName: string
@@ -94,9 +94,9 @@ const CreateAppModal = ({
         {isEditModal && (
           <div className='mb-9 font-semibold text-xl leading-[30px] text-gray-900'>{t('app.editAppTitle')}</div>
         )}
-        {!isEditModal && (
+        {/* {!isEditModal && (
           <div className='mb-9 font-semibold text-xl leading-[30px] text-gray-900'>{t('explore.appCustomize.title', { name: appName })}</div>
-        )}
+        )} */}
         <div className='mb-9'>
           {/* icon & name */}
           <div className='pt-2'>
