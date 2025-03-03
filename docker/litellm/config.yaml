@@ -1,0 +1,38 @@
+model_list:
+  # model: openai/google/gemma-2-9b-it
+  # model: openai/neuralmagic/gemma-2-9b-it-quantized.w4a16
+  # model: openai/neuralmagic/gemma-2-9b-it-FP8
+
+  # - model_name: gemma2
+  #   litellm_params:
+  #     # model: openai/dangvansam/gemma-2-27b-it-FP8-fix-system-role
+  #     model: openai/Qwen/Qwen2.5-14B-Instruct-AWQ
+  #     api_base: http://localhost:7000/v1
+  #     api_key: test
+
+  - model_name: qwen2.5-14b
+    litellm_params:
+      model: openai/Qwen/Qwen2.5-14B-Instruct-AWQ
+      api_base: http://localhost:8000/v1
+      api_key: test
+
+# router_settings:
+#   context_window_fallbacks: [{"gemma2": ["gemma2-ollama"]}]
+  # routing_strategy: least-busy # Literal["simple-shuffle", "least-busy", "usage-based-routing","latency-based-routing"], default="simple-shuffle"
+  # timeout: 15
+  # redis_host: localhost
+  # redis_port: 46379
+  # redis_password: litellm
+
+litellm_settings:
+  cache: true 
+  cache_params:
+    type: redis
+    host: localhost 
+    port: 46379 
+    password: litellm
+    namespace: "litellm.caching.caching"
+    ttl: 600
+
+general_settings:
+  master_key: Techainer123@
