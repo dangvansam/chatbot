@@ -179,12 +179,12 @@ class MarketplaceConfig(BaseSettings):
 
     MARKETPLACE_ENABLED: bool = Field(
         description="Enable or disable marketplace",
-        default=True,
+        default=False,
     )
 
     MARKETPLACE_API_URL: HttpUrl = Field(
         description="Marketplace API URL",
-        default="https://marketplace.dify.ai",
+        default="http://localhost:5001",
     )
 
 
