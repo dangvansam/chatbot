@@ -1,29 +1,29 @@
 version: "3.9"
 name: chatbot-litellm
 services:
-  litellm:
-    image: ghcr.io/berriai/litellm:main-latest
-    environment:
-      DATABASE_URL: "postgresql://llmproxy:dbpassword9090@localhost:45432/litellm"
-      STORE_MODEL_IN_DB: "True"
-    network_mode: host
-    volumes:
-      - ./litellm/config.yaml:/app/config.yaml
-    command: [ "--config", "/app/config.yaml", "--port", "4000", "--num_workers", "8" ]
-    depends_on:
-      - db
-      - redis
-    ports:
-      - 4000:4000
+  # litellm:
+  #   image: ghcr.io/berriai/litellm:main-latest
+  #   environment:
+  #     DATABASE_URL: "postgresql://llmproxy:dbpassword9090@localhost:45432/litellm"
+  #     STORE_MODEL_IN_DB: "True"
+  #   network_mode: host
+  #   volumes:
+  #     - ./litellm/config.yaml:/app/config.yaml
+  #   command: [ "--config", "/app/config.yaml", "--port", "4000", "--num_workers", "8" ]
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   ports:
+  #     - 4000:4000
 
-  redis:
-    image: redis:6-alpine
-    restart: always
-    volumes:
-      - ./volumes/redis/litellm_redis_data:/data
-    command: redis-server --requirepass litellm
-    ports:
-      - 46379:6379
+  # redis:
+  #   image: redis:6-alpine
+  #   restart: always
+  #   volumes:
+  #     - ./volumes/redis/litellm_redis_data:/data
+  #   command: redis-server --requirepass litellm
+  #   ports:
+  #     - 46379:6379
 
   vllm:
     image: vllm/vllm-openai:latest
@@ -33,7 +33,7 @@ services:
       - /home/tnd/.cache/huggingface:/workspace/.cache
       - /home/tnd/.cache/huggingface:/root/.cache/huggingface
     entrypoint: python3
-    command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model Qwen/Qwen2.5-14B-Instruct-AWQ --gpu-memory-utilization 0.4 -q awq_marlin --max-model-len 16000
+    command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model Qwen/Qwen2.5-14B-Instruct-AWQ --gpu-memory-utilization 1.0 -q awq_marlin --max-model-len 16000
     environment:
       - VLLM_ATTENTION_BACKEND=FLASHINFER
     healthcheck:
@@ -75,20 +75,20 @@ services:
   #   ports:
   #     - 7001:8000
 
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: litellm
-      POSTGRES_USER: llmproxy
-      POSTGRES_PASSWORD: dbpassword9090
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./volumes/redis/litellm_db_data:/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-    ports:
-      - 45432:5432
+  # db:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_DB: litellm
+  #     POSTGRES_USER: llmproxy
+  #     POSTGRES_PASSWORD: dbpassword9090
+  #     PGDATA: /var/lib/postgresql/data/pgdata
+  #   volumes:
+  #     - ./volumes/redis/litellm_db_data:/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
+  #     interval: 1s
+  #     timeout: 5s
+  #     retries: 10
+  #   ports:
+  #     - 45432:5432

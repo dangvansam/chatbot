@@ -115,7 +115,7 @@ services:
     image: langgenius/dify-sandbox:0.2.10
     restart: always
     environment:
-      # The DifySandbox configurations
+      # The Sandbox configurations
       # Make sure you are changing this key for your deployment with a strong key.
       # You can generate a strong key using `openssl rand -base64 42`.
       API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
@@ -135,7 +135,7 @@ services:
 
   # plugin daemon
   plugin_daemon:
-    image: langgenius/dify-plugin-daemon:0.0.3-local
+    image: langgenius/dify-plugin-daemon:0.0.1-local
     restart: always
     environment:
       # Use the shared environment variables.
@@ -262,18 +262,6 @@ services:
       AUTHORIZATION_ADMINLIST_ENABLED: ${WEAVIATE_AUTHORIZATION_ADMINLIST_ENABLED:-true}
       AUTHORIZATION_ADMINLIST_USERS: ${WEAVIATE_AUTHORIZATION_ADMINLIST_USERS:-hello@dify.ai}
 
-  # Qdrant vector store.
-  # (if used, you need to set VECTOR_STORE to qdrant in the api & worker service.)
-  # qdrant:
-  #   image: langgenius/qdrant:v1.7.3
-  #   profiles:
-  #     - qdrant
-  #   restart: always
-  #   volumes:
-  #     - ./volumes/qdrant:/qdrant/storage
-  #   environment:
-  #     QDRANT_API_KEY: ${QDRANT_API_KEY:-difyai123456}
-  
   # unstructured .
   # (if used, you need to set ETL_TYPE to Unstructured in the api & worker service.)
   unstructured:

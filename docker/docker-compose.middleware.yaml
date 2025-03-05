@@ -41,12 +41,10 @@ services:
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
 
-  # The DifySandbox
   sandbox:
     image: langgenius/dify-sandbox:0.2.10
     restart: always
     environment:
-      # The DifySandbox configurations
       # Make sure you are changing this key for your deployment with a strong key.
       # You can generate a strong key using `openssl rand -base64 42`.
       API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}

@@ -8,7 +8,7 @@ class PackagingInfo(BaseSettings):
     """
 
     CURRENT_VERSION: str = Field(
-        description="Dify version",
+        description="Chatbot version",
         default="1.0.0",
     )
 
