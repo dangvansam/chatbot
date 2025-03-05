@@ -4,7 +4,7 @@ import { RiArrowRightUpLine, RiRobot2Line } from '@remixicon/react'
 import { useRouter } from 'next/navigation'
 import Button from '../components/base/button'
 import Avatar from './avatar'
-import LogoSite from '@/app/components/base/logo/logo-site'
+// import LogoSite from '@/app/components/base/logo/logo-site'
 
 const Header = () => {
   const { t } = useTranslation()
@@ -17,7 +17,7 @@ const Header = () => {
     <div className='flex flex-1 items-center justify-between px-4'>
       <div className='flex items-center gap-3'>
         <div className='flex items-center cursor-pointer' onClick={back}>
-          <LogoSite className='object-contain' />
+          {/* <LogoSite className='object-contain' /> */}
         </div>
         <div className='w-[1px] h-4 bg-divider-regular' />
         <p className='text-text-primary title-3xl-semi-bold'>{t('common.account.account')}</p>

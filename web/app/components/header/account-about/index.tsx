@@ -35,7 +35,7 @@ export default function AccountAbout({
           <RiCloseLine className='w-4 h-4 text-gray-500' />
         </div>
         <div>
-          <LogoSite className='mx-auto mb-2' />
+          {/* <LogoSite className='mx-auto mb-2' /> */}
           <div className='mb-3 text-center text-xs font-normal text-gray-500'>Version {langeniusVersionInfo?.current_version}</div>
           <div className='mb-4 text-center text-xs font-normal text-gray-700'>
             {/* <div>© {dayjs().year()} LangGenius, Inc., Contributors.</div> */}

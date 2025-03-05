@@ -690,6 +690,33 @@ services:
     volumes:
       - ./volumes/unstructured:/app/data
 
+  vllm:
+    image: vllm/vllm-openai:latest
+    restart: always
+    shm_size: '48gb'
+    volumes:
+      - /home/tnd/.cache/huggingface:/workspace/.cache
+      - /home/tnd/.cache/huggingface:/root/.cache/huggingface
+    entrypoint: python3
+    # command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model Qwen/Qwen2.5-14B-Instruct-AWQ --gpu-memory-utilization 1.0 -q awq_marlin --max-model-len 16000
+    command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model dangvansam/gemma-2-9b-it-fix-system-role --gpu-memory-utilization 1.0 --max-model-len 4096
+    # environment:
+    #   - VLLM_ATTENTION_BACKEND=FLASHINFER
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://0.0.0.0:8000/v1/models" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+    ports:
+      - 8000:8000
+
 networks:
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
   ssrf_proxy_network:

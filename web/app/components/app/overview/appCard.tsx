@@ -72,7 +72,7 @@ function AppCard({
     if (appInfo.mode !== 'completion' && appInfo.mode !== 'workflow')
       operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.embedded.entry'), opIcon: RiWindowLine })
 
-    operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.customize.entry'), opIcon: RiPaintBrushLine })
+    // operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.customize.entry'), opIcon: RiPaintBrushLine })
 
     if (isCurrentWorkspaceEditor)
       operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.settings.entry'), opIcon: RiEqualizer2Line })
@@ -97,10 +97,10 @@ function AppCard({
         return () => {
           window.open(appUrl, '_blank')
         }
-      case t('appOverview.overview.appInfo.customize.entry'):
-        return () => {
-          setShowCustomizeModal(true)
-        }
+      // case t('appOverview.overview.appInfo.customize.entry'):
+      //   return () => {
+      //     setShowCustomizeModal(true)
+      //   }
       case t('appOverview.overview.appInfo.settings.entry'):
         return () => {
           setShowSettingsModal(true)

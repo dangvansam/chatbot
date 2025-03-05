@@ -69,7 +69,8 @@ const List = forwardRef<{ handleScroll: () => void }, Props>(({
     return (
       <Link
         className='sticky bottom-0 z-10 flex h-8 px-4 py-1 system-sm-medium items-center border-t border-[0.5px] border-components-panel-border bg-components-panel-bg-blur rounded-b-lg shadow-lg text-text-accent-light-mode-only cursor-pointer'
-        href={`${marketplaceUrlPrefix}/`}
+        // href={`${marketplaceUrlPrefix}/`}
+        href="#"
         target='_blank'
       >
         <span>{t('plugin.findMoreInMarketplace')}</span>

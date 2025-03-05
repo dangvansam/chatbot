@@ -33,9 +33,10 @@ services:
       - /home/tnd/.cache/huggingface:/workspace/.cache
       - /home/tnd/.cache/huggingface:/root/.cache/huggingface
     entrypoint: python3
-    command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model Qwen/Qwen2.5-14B-Instruct-AWQ --gpu-memory-utilization 1.0 -q awq_marlin --max-model-len 16000
-    environment:
-      - VLLM_ATTENTION_BACKEND=FLASHINFER
+    # command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model Qwen/Qwen2.5-14B-Instruct-AWQ --gpu-memory-utilization 1.0 -q awq_marlin --max-model-len 16000
+    command: -m vllm.entrypoints.openai.api_server --port=8000 --host=0.0.0.0 --model dangvansam/gemma-2-9b-it-fix-system-role --gpu-memory-utilization 1.0 --max-model-len 4096
+    # environment:
+    #   - VLLM_ATTENTION_BACKEND=FLASHINFER
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://0.0.0.0:8000/v1/models" ]
       interval: 30s
