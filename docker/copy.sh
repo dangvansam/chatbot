@@ -1,0 +1,2 @@
+sudo cp -vrf /home/tnd/docker/.chatbot/docker/volumes/openai_public.py /home/tnd/docker/.chatbot/docker/volumes/plugin_daemon/cwd/langgenius/openai_api_compatible-0.0.7@f20c7275bbcf055ec5d170dd5128e341986e2dcba5266d08fd080d4bdf2288f6/.venv/lib/python3.12/site-packages/tiktoken_ext/openai_public.py
+sudo cp -vrf /home/tnd/docker/.chatbot/docker/volumes/load.py /home/tnd/docker/.chatbot/docker/volumes/plugin_daemon/cwd/langgenius/openai_api_compatible-0.0.7@f20c7275bbcf055ec5d170dd5128e341986e2dcba5266d08fd080d4bdf2288f6/.venv/lib/python3.12/site-packages/tiktoken/load.py
