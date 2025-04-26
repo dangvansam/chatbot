@@ -411,7 +411,7 @@ name: tnd-chatbot
 services:
   # API service
   api:
-    image: tnd-chatbot-api:latest
+    image: dangvansam/tnd-chatbot:api
     build: ../api
     restart: always
     environment:
@@ -436,7 +436,7 @@ services:
 
   # worker service
   worker:
-    image: tnd-chatbot-api:latest
+    image: dangvansam/tnd-chatbot:api
     build: ../api
     restart: always
     environment:
@@ -460,7 +460,7 @@ services:
 
   # Frontend web application.
   web:
-    image: tnd-chatbot-web:latest
+    image: dangvansam/tnd-chatbot:web
     build: ../web
     restart: always
     environment:
@@ -657,13 +657,6 @@ services:
       AUTHORIZATION_ADMINLIST_ENABLED: ${WEAVIATE_AUTHORIZATION_ADMINLIST_ENABLED:-true}
       AUTHORIZATION_ADMINLIST_USERS: ${WEAVIATE_AUTHORIZATION_ADMINLIST_USERS:-hello@dify.ai}
 
-  # unstructured:
-  #   image: downloads.unstructured.io/unstructured-io/unstructured-api:latest
-  #   profiles:
-  #     - unstructured
-  #   restart: always
-  #   volumes:
-  #     - ./volumes/unstructured:/app/data
 
   vllm:
     image: vllm/vllm-openai:v0.8.3
@@ -672,8 +665,8 @@ services:
     volumes:
       - ./volumes/vllm:/root/.cache/huggingface
     entrypoint: vllm
-    command: serve dangvansam/gemma-2-9b-it-fix-system-role-awq --served-model-name local-model-1 --port=8000 --host=0.0.0.0  --gpu-memory-utilization 0.4 --enforce-eager
-    # command: serve gaunernst/gemma-3-1b-it-int4-awq --served-model-name local-model-1 --port=8000 --host=0.0.0.0  --gpu-memory-utilization 0.9 --enforce-eager
+    # command: serve dangvansam/gemma-2-9b-it-fix-system-role-awq --served-model-name local-model-1 --port=8000 --host=0.0.0.0  --gpu-memory-utilization 0.4 --enforce-eager
+    command: serve gaunernst/gemma-3-12b-it-int4-awq --served-model-name local-model-1 --port=8000 --host=0.0.0.0  --gpu-memory-utilization 0.8  --max_model_len 20000 --enforce-eager
     # command: serve Qwen/Qwen2.5-0.5B-Instruct-AWQ --served-model-name local-model-1 --port=8000 --host=0.0.0.0  --gpu-memory-utilization 0.3 --enforce-eager
     # environment:
       # - TRANSFORMERS_OFFLINE=1
@@ -715,6 +708,12 @@ services:
           - driver: nvidia
             device_ids: ['0']
             capabilities: [gpu]
+
+  viet-itn:
+    image: dangvansam/viet-itn:latest
+    restart: always
+    # ports:
+    #   - "8006:8000"
 
 networks:
   ssrf_proxy_network:
