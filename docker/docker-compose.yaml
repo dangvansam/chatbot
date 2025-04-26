@@ -409,15 +409,12 @@ x-shared-env: &shared-api-worker-env
 
 name: tnd-chatbot
 services:
-  # API service
   api:
     image: dangvansam/tnd-chatbot:api
     build: ../api
     restart: always
     environment:
-      # Use the shared environment variables.
       <<: *shared-api-worker-env
-      # Startup mode, 'api' starts the API server.
       MODE: api
       SENTRY_DSN: ${API_SENTRY_DSN:-}
       SENTRY_TRACES_SAMPLE_RATE: ${API_SENTRY_TRACES_SAMPLE_RATE:-1.0}
@@ -428,7 +425,6 @@ services:
       - db
       - redis
     volumes:
-      # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
       - ssrf_proxy_network
@@ -440,9 +436,7 @@ services:
     build: ../api
     restart: always
     environment:
-      # Use the shared environment variables.
       <<: *shared-api-worker-env
-      # Startup mode, 'worker' starts the Celery worker for processing the queue.
       MODE: worker
       SENTRY_DSN: ${API_SENTRY_DSN:-}
       SENTRY_TRACES_SAMPLE_RATE: ${API_SENTRY_TRACES_SAMPLE_RATE:-1.0}
@@ -458,7 +452,6 @@ services:
       - ssrf_proxy_network
       - default
 
-  # Frontend web application.
   web:
     image: dangvansam/tnd-chatbot:web
     build: ../web
@@ -478,7 +471,6 @@ services:
       INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH: ${INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH:-}
       PM2_INSTANCES: ${PM2_INSTANCES:-2}
 
-  # The postgres database.
   db:
     image: postgres:15-alpine
     restart: always
@@ -503,7 +495,6 @@ services:
     # ports:
     #   - '${EXPOSE_DB_PORT:-5432}:5432'
 
-  # The redis cache.
   redis:
     image: redis:6-alpine
     restart: always
@@ -517,7 +508,6 @@ services:
     healthcheck:
       test: [ 'CMD', 'redis-cli', 'ping' ]
 
-  # The Sandbox
   sandbox:
     image: langgenius/dify-sandbox:0.2.10
     restart: always
@@ -537,12 +527,10 @@ services:
     networks:
       - ssrf_proxy_network
 
-  # plugin daemon
   plugin_daemon:
     image: langgenius/dify-plugin-daemon:0.0.7-local
     restart: always
     environment:
-      # Use the shared environment variables.
       <<: *shared-api-worker-env
       DB_DATABASE: ${DB_PLUGIN_DATABASE:-dify_plugin}
       SERVER_PORT: ${PLUGIN_DAEMON_PORT:-5002}
@@ -579,28 +567,6 @@ services:
       - ssrf_proxy_network
       - default
 
-  # Certbot service
-  # use `docker-compose --profile certbot up` to start the certbot service.
-  # certbot:
-  #   image: certbot/certbot
-  #   profiles:
-  #     - certbot
-  #   volumes:
-  #     - ./volumes/certbot/conf:/etc/letsencrypt
-  #     - ./volumes/certbot/www:/var/www/html
-  #     - ./volumes/certbot/logs:/var/log/letsencrypt
-  #     - ./volumes/certbot/conf/live:/etc/letsencrypt/live
-  #     - ./certbot/update-cert.template.txt:/update-cert.template.txt
-  #     - ./certbot/docker-entrypoint.sh:/docker-entrypoint.sh
-  #   environment:
-  #     - CERTBOT_EMAIL=${CERTBOT_EMAIL}
-  #     - CERTBOT_DOMAIN=${CERTBOT_DOMAIN}
-  #     - CERTBOT_OPTIONS=${CERTBOT_OPTIONS:-}
-  #   entrypoint: [ '/docker-entrypoint.sh' ]
-  #   command: [ 'tail', '-f', '/dev/null' ]
-
-  # The nginx reverse proxy.
-  # used for reverse proxying the API service and Web service.
   nginx:
     image: nginx:latest
     restart: always
@@ -656,7 +622,6 @@ services:
       AUTHENTICATION_APIKEY_USERS: ${WEAVIATE_AUTHENTICATION_APIKEY_USERS:-hello@dify.ai}
       AUTHORIZATION_ADMINLIST_ENABLED: ${WEAVIATE_AUTHORIZATION_ADMINLIST_ENABLED:-true}
       AUTHORIZATION_ADMINLIST_USERS: ${WEAVIATE_AUTHORIZATION_ADMINLIST_USERS:-hello@dify.ai}
-
 
   vllm:
     image: vllm/vllm-openai:v0.8.3

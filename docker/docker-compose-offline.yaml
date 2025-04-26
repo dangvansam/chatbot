@@ -409,15 +409,12 @@ x-shared-env: &shared-api-worker-env
 
 name: tnd-chatbot
 services:
-  # API service
   api:
     image: dangvansam/tnd-chatbot:api
     build: ../api
     restart: always
     environment:
-      # Use the shared environment variables.
       <<: *shared-api-worker-env
-      # Startup mode, 'api' starts the API server.
       MODE: api
       SENTRY_DSN: ${API_SENTRY_DSN:-}
       SENTRY_TRACES_SAMPLE_RATE: ${API_SENTRY_TRACES_SAMPLE_RATE:-1.0}
@@ -428,25 +425,18 @@ services:
       - db
       - redis
     volumes:
-      # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
-      # - ssrf_proxy_network
-      # - default
       - isolated_network
     # ports:
     #   - 5001:5001
 
-  # worker service
-  # The Celery worker for processing the queue.
   worker:
     image: dangvansam/tnd-chatbot:api
     build: ../api
     restart: always
     environment:
-      # Use the shared environment variables.
       <<: *shared-api-worker-env
-      # Startup mode, 'worker' starts the Celery worker for processing the queue.
       MODE: worker
       SENTRY_DSN: ${API_SENTRY_DSN:-}
       SENTRY_TRACES_SAMPLE_RATE: ${API_SENTRY_TRACES_SAMPLE_RATE:-1.0}
@@ -457,14 +447,12 @@ services:
       - db
       - redis
     volumes:
-      # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
       # - ssrf_proxy_network
       # - default
       - isolated_network
 
-  # Frontend web application.
   web:
     image: dangvansam/tnd-chatbot:web
     build: ../web
@@ -486,7 +474,6 @@ services:
     networks:
       - isolated_network
 
-  # The postgres database.
   db:
     image: postgres:15-alpine
     restart: always
@@ -514,7 +501,6 @@ services:
       - isolated_network
       # - default
 
-  # The redis cache.
   redis:
     image: redis:6-alpine
     restart: always
@@ -530,7 +516,6 @@ services:
     networks:
       - isolated_network
 
-  # The Sandbox
   sandbox:
     image: langgenius/dify-sandbox:0.2.10
     restart: always
@@ -552,7 +537,6 @@ services:
     networks:
       - isolated_network
 
-  # plugin daemon
   plugin_daemon:
     image: langgenius/dify-plugin-daemon:0.0.7-local
     restart: always
@@ -660,7 +644,6 @@ services:
     networks:
       - isolated_network
 
-
   vllm:
     image: vllm/vllm-openai:v0.8.3
     restart: always
@@ -719,7 +702,6 @@ services:
     networks:
       - isolated_network
     #   - default
-
   viet-itn:
     image: dangvansam/viet-itn:latest
     restart: always

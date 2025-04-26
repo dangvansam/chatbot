@@ -139,6 +139,7 @@ web/.vscode/settings.json
 .ideaDataSources/
 *.iml
 api/.idea
+api/.vscode
 
 api/.env
 api/storage/*
